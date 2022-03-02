@@ -53,7 +53,7 @@ func (p *HTTPPool) Set(peers ...string) {
 	}
 }
 
-// PickPeer 根据key选择一个peer
+// PickPeer 根据key选择一个peer,即选择一个结点
 func (p *HTTPPool) PickPeer(key string) (PeerGetter, bool) {
 	p.mu.Lock()
 	defer p.mu.Unlock()
