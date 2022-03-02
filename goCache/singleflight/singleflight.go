@@ -11,6 +11,7 @@ type call struct {
 
 // Group 管理不同 key 的请求(call)。
 type Group struct {
+	//mu 是保护 Group 的成员变量 m 不被并发读写而加上的锁
 	mu sync.Mutex
 
 	// 这里必须保存*call指针类型，因为要确保多个重复阻塞的请求得到的g.m[key]指向同一地址
@@ -18,7 +19,7 @@ type Group struct {
 	m map[string]*call
 }
 
-// Do 针对相同的 key，无论 Do 被调用多少次，函数 fn 都只会被调用一次，等待 fn 调用结束了，返回返回值或错误。
+// Do 针对相同的 key，只创建一个实体，无论 Do 被调用多少次，函数 fn 都只会被调用一次，等待 fn 调用结束了，返回返回值或错误。
 func (g *Group) Do(key string, fn func() (interface{}, error)) (interface{}, error) {
 	g.mu.Lock()
 	if g.m == nil {
