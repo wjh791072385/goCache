@@ -1,8 +1,8 @@
-package geecache
+package goCache
 
 import (
 	"fmt"
-	"goCache/geecache/consistentHash"
+	"goCache/goCache/consistentHash"
 	"io/ioutil"
 	"log"
 	"net/http"

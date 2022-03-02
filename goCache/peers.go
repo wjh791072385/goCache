@@ -1,4 +1,4 @@
-package geecache
+package goCache
 
 type PeerPicker interface {
 	PickPeer(key string) (peer PeerGetter, ok bool)

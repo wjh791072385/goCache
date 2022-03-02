@@ -1,7 +1,7 @@
-package geecache
+package goCache
 
 import (
-	"goCache/geecache/lru"
+	"goCache/goCache/lru"
 	"sync"
 )
 

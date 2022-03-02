@@ -1,8 +1,8 @@
-package geecache
+package goCache
 
 import (
 	"fmt"
-	"goCache/geecache/singleflight"
+	"goCache/goCache/singleflight"
 	"log"
 	"sync"
 )
@@ -107,7 +107,7 @@ func (g *Group) getFromPeer(peer PeerGetter, key string) (ByteView, error) {
 		return ByteView{}, err
 	}
 
-	//加入本地缓存
+	// 从peer结点获取的不需要加入缓存，因为peer结点时根据一致性哈希计算出来的
 	//g.populateCache(key, ByteView{b: bytes})
 	return ByteView{b: bytes}, nil
 }
