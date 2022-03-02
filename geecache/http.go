@@ -1,8 +1,8 @@
-package goCache
+package geecache
 
 import (
 	"fmt"
-	"goCache/goCache/consistentHash"
+	"goCache/geecache/consistentHash"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -37,7 +37,7 @@ func NewHTTPPool(self string) *HTTPPool {
 }
 
 func (p *HTTPPool) Log(format string, v ...interface{}) {
-	log.Printf(format, p.self, fmt.Sprintf(format, v...))
+	log.Printf("[Server %s] %s", p.self, fmt.Sprintf(format, v...))
 }
 
 // Set 添加远程结点
@@ -101,13 +101,16 @@ func (p *HTTPPool) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 // Get 实现PeerGetter接口
 func (h *httpGetter) Get(group string, key string) ([]byte, error) {
 	u := fmt.Sprintf(
-		"%v/%v/%v",
+		"%v%v/%v",
 		h.baseURL,
 		url.QueryEscape(group),
 		url.QueryEscape(key),
 	)
 
 	res, err := http.Get(u)
+
+	//log.Println("访问url", u)
+
 	if err != nil {
 		return nil, err
 	}
