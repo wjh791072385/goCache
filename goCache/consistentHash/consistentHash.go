@@ -9,10 +9,10 @@ import (
 type Hash func(data []byte) uint32
 
 type Map struct {
-	hash     Hash
+	hash     Hash //可自定义哈希函数
 	replicas int
-	keys     []int //sorted
-	hashMap  map[int]string
+	keys     []int          //sorted
+	hashMap  map[int]string //键为hash值，值为结点地址
 }
 
 func New(replicas int, fn Hash) *Map {
