@@ -49,6 +49,7 @@ func (m *Map) Get(key string) string {
 	hash := int(m.hash([]byte(key)))
 
 	// Binary search for appropriate replica.
+	// 即顺时针查找0至2^31 -1
 	idx := sort.SearchInts(m.keys, hash)
 
 	//当hash值大于所有m.keys[i]时，idx = len(m.keys)，因此要取余
